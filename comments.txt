@@ -1,0 +1,3 @@
+When you take arguments and convert them to Number you still get NaN which is Numbers
+so you have to write custom iteration code which is PITA. Normal langueges would have some sort of
+patch for this shit. maybe there is such a thing?
