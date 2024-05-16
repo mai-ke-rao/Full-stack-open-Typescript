@@ -1,5 +1,11 @@
 # dependencies
 /9.1-9.7/node_modules
+/Course-contents/node_modules
+/Patientor_backend/node_modules
+/typed-notes-main/node_modules
+/patientor-main/node_modules
+/Ilaris flight diaries/node_modules
+/Diaries-frontend/node_modules
 
 # Examples and notes
 Notes.docx
