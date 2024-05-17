@@ -11,9 +11,10 @@ router.get('/', (_req, res) => {
   res.send(diaryService.getNonSensitiveEntries());
 });
 
+/*
 router.post('/', (_req, res) => {
   res.send('Saving a diary!');
-});
+});*/
 
 router.get('/:id', (req, res) => {
   const diary = diaryService.findById(Number(req.params.id));

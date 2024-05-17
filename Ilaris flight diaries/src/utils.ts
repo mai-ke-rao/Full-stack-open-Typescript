@@ -1,5 +1,5 @@
 import { NewDiaryEntry, Visibility, Weather } from './types';
-
+//this is type guard
 const isVisibility = (param: string): param is Visibility => {
     return Object.values(Visibility).map(v => v.toString()).includes(param);
   };
@@ -10,7 +10,7 @@ const isVisibility = (param: string): param is Visibility => {
     }
     return visibility;
   };
-
+//this is type guard
 const isWeather = (param: string): param is Weather => {
     return Object.values(Weather).map(v => v.toString()).includes(param);
   };
