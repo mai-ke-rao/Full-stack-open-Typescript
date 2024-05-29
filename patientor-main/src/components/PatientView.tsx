@@ -12,7 +12,7 @@ import { Female, Male, Transgender}  from '@mui/icons-material';
 
 
 export const PatientView = () => {
-    //const [diagnosisOptions, setDiagnosisOptions] = useState<string[]>([]);
+    const [diagnosisOptions, setDiagnosisOptions] = useState<string[]>([]);
     const [healthCheckFormVisible, setHealthCheckFormVisible] = useState(false);
     const [occupationalHealthcareFormVisible, setOccupationalHealthcareFormVisible] = useState(false);
     const [hospitalFormVisible, setHospitalFormVisible] = useState(false);
@@ -23,28 +23,40 @@ console.log("id in Patient is ",useParams().id);
 var id:string|undefined  = useParams().id;
 
 
+/* If anybody can fathom why the below code doesn't work, please let me know.
+useEffect(()=> {
+    const fetchDiagnosis = async () => {
+        console.log("Log works inside both useEffects");
+        const temp = await diagnosisService.getAll();
+        console.log("temp is ", temp);
+        
+        setDiagnosis(temp);
+        
+      };
+        
+      void fetchDiagnosis;
+}, []);*/
 
+const diagHook = () => {
+    diagnosisService.getAll().then((data) => {
+        setDiagnosis(data);
+        console.log('I did');
+        setDiagnosisOptions(data.map((el) => el.code));
+    });
+}
+useEffect(diagHook, []);
 
 useEffect(()=> {
     const fetchPatient = async () => {
         if(id){
+            console.log("Log works inside useEffect");
+            
         const temp = await patientService.getOne(id);
         setPatient(temp);
         }
       
       };
       void fetchPatient();
-}, []);
-
-useEffect(()=> {
-    const fetchDiagnosis = async () => {
-       
-        const temp = await diagnosisService.getAll();
-        setDiagnosis(temp);
-        
-      };
-        
-      void fetchDiagnosis;
 }, []);
 
 
@@ -62,9 +74,9 @@ occupation: {patient?.occupation}
 <br></br>
 <span style={{backgroundColor:'red'}}>{notification}</span>
 <br></br>
-{healthCheckFormVisible? <AddHealthCheckForm setPatient={setPatient} setNotification={setNotification} setHealthCheckFormVisible={setHealthCheckFormVisible} healthCheckFormVisible={healthCheckFormVisible} /*diagnosisOptions={diagnosisOptions}*//> : null}
-{occupationalHealthcareFormVisible? <AddOccupationalHealtcareForm setPatient={setPatient} setNotification={setNotification} setOccupationalHealthcareFormVisible={setOccupationalHealthcareFormVisible} occupationalHealthcareFormVisible={occupationalHealthcareFormVisible}/> : null}
-{hospitalFormVisible? <AddHospitalForm setPatient={setPatient} setNotification={setNotification} setHospitalFormVisible={setHospitalFormVisible} hospitalFormVisible={hospitalFormVisible}/> : null}
+{healthCheckFormVisible? <AddHealthCheckForm setPatient={setPatient} setNotification={setNotification} setHealthCheckFormVisible={setHealthCheckFormVisible} healthCheckFormVisible={healthCheckFormVisible} diagnosisOptions={diagnosisOptions}/> : null}
+{occupationalHealthcareFormVisible? <AddOccupationalHealtcareForm setPatient={setPatient} setNotification={setNotification} setOccupationalHealthcareFormVisible={setOccupationalHealthcareFormVisible} occupationalHealthcareFormVisible={occupationalHealthcareFormVisible}  diagnosisOptions={diagnosisOptions}/> : null}
+{hospitalFormVisible? <AddHospitalForm setPatient={setPatient} setNotification={setNotification} setHospitalFormVisible={setHospitalFormVisible} hospitalFormVisible={hospitalFormVisible}  diagnosisOptions={diagnosisOptions}/> : null}
 <br></br>
 <button onClick={() => setHealthCheckFormVisible(true)}> Add Healthcheck entry </button>
 <button onClick={() => setHospitalFormVisible(true)}> Add Hospital entry </button>

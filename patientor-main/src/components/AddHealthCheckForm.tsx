@@ -11,7 +11,7 @@ interface setProp{
   setNotification: React.Dispatch<React.SetStateAction<string|undefined>>
   setHealthCheckFormVisible: React.Dispatch<React.SetStateAction<boolean>>
   healthCheckFormVisible: boolean
- // diagnosisOptions: string[]
+ diagnosisOptions: string[]
 }
 
 
@@ -35,7 +35,7 @@ export const AddHealthCheckForm:React.FC<setProp> = (props: setProp) => {
  return(<></>)
 }
 
-/*
+
 const onDiagnosisCodeChange = (event: SelectChangeEvent<string>) => {
     event.preventDefault();
     if ( typeof event.target.value === "string") {
@@ -46,7 +46,7 @@ const onDiagnosisCodeChange = (event: SelectChangeEvent<string>) => {
        }
     }
   };
-*/
+
 
      var id:string|undefined  = useParams().id;
 
@@ -126,7 +126,7 @@ return(
   value={diagnosisCodes}
   onChange={({target}) => setDiagnosisCodes(target.value.split(new RegExp(',\\s|,', 'g')))}
   />
-  {/*<InputLabel>Diagnosis codes</InputLabel>
+  <InputLabel>Diagnosis codes</InputLabel>
   <Select
           label="Diagnosis codes"
           fullWidth
@@ -142,7 +142,7 @@ return(
     </MenuItem>
   )}
 
-</Select>*/}
+</Select>
   <br></br>
  <button type='button' onClick={()=> props.setHealthCheckFormVisible(false)}>Cancel</button><button type='submit'>Add</button> 
     </form>

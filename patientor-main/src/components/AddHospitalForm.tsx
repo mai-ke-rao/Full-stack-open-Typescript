@@ -1,4 +1,4 @@
-import {  TextField, InputLabel, MenuItem, Select, /*Grid, Button, SelectChangeEvent */} from '@mui/material';
+import {  TextField, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import patientService from '../services/patients'
 import {useState} from 'react'
 import { HealthCheckRating as HRating, Patient } from '../types';
@@ -10,6 +10,7 @@ interface setProp{
   setNotification: React.Dispatch<React.SetStateAction<string|undefined>>
   setHospitalFormVisible: React.Dispatch<React.SetStateAction<boolean>>
   hospitalFormVisible: boolean
+  diagnosisOptions: string[]
 }
 
 
@@ -34,6 +35,16 @@ export const AddHospitalForm:React.FC<setProp> = (props: setProp) => {
 {
  return(<></>)
 }
+const onDiagnosisCodeChange = (event: SelectChangeEvent<string>) => {
+  event.preventDefault();
+  if ( typeof event.target.value === "string") {
+    const value = event.target.value;
+     const choice = props.diagnosisOptions.find(el => el === value)
+     if(choice){
+     setDiagnosisCodes([...diagnosisCodes, choice])
+     }
+  }
+};
 
      var id:string|undefined  = useParams().id;
 
@@ -123,6 +134,22 @@ return(
   value={diagnosisCodes}
   onChange={({target}) => setDiagnosisCodes(target.value.split(','))}
   />
+    <Select
+          label="Diagnosis codes"
+          fullWidth
+          value={diagnosisCodes.toString()}
+          onChange={onDiagnosisCodeChange}
+>
+{props.diagnosisOptions.map(el => 
+      <MenuItem
+      key={el}
+      value={el}
+    >
+      {el}
+    </MenuItem>
+  )}
+
+</Select>
   <br></br>
  <button type='button' onClick={()=> props.setHospitalFormVisible(false)}>Cancel</button><button type='submit'>Add</button> 
     </form>
