@@ -86,7 +86,7 @@ const parseDateOfBirth = (date: unknown): string => {
     return param;
   }
   
-
+//Designed to work with extraneous data, used in data section.
 export const toNewPatientEntry = (object: unknown): Patient => {
 
  if(!object || typeof object !== 'object') {
